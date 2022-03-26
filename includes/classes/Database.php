@@ -10,12 +10,17 @@ class Database{
 
     public function __construct(){
         
-        $pdo = new PDO("mysql:host=localhost;dbname=project", "project_admin", "abcd");
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+        $this->pdo = new PDO("mysql:host=localhost;dbname=project", "project_admin", "abcd");
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
         
     }
 
-    //Add queryDB() here
+    public function queryDB($sql, $mode, $values) {
+        $stmt = $this->pdo->prepare($sql);
+        foreach ($values as $valueToBind) {
+            $stmt->bindValue($valueToBind[0], $valueToBind[1]);
+        }
+    }
     
 }
     
