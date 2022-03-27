@@ -43,6 +43,40 @@ class BlogMember extends BlogReader {
         else 
             return false;
     }
+
+    private function getLatestPostID() {
+        $sql = "SELECT max(id) AS max FROM posts";
+        $result = $this->db->queryDB($sql, Database::SELECTSINGLE);
+        if (isset($result['max'])) {
+            return $result['max'];
+        }
+        return 0;
+    }
+
+    public function updateLastViewedPost() {
+        $max = $this->getLatestPostID();
+        $sql = "UPDATE members SET last_viewed = :max
+        WHERE username = :username";
+        $values = array(
+            array(":username", $this->type)
+        );
+        $this->db->queryDB($sql, Database::EXECUTE, $values);
+    }
+
+    public function getLastViewedPost() {
+        $sql = "SELECT last_viewed FROM members WHERE
+        username = :username";
+        $values = array(
+            array(":username", $this->type)
+        );
+        $result = $this->db->queryDB($sql, Database::SELECTSINGLE, $values);
+        
+        if (!isset($result['last_viewed'])) {
+            return 0;
+        }
+
+        return $result['last_viewed'];
+    }
 }
 
 

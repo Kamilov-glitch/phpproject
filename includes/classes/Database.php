@@ -15,7 +15,7 @@ class Database{
         
     }
 
-    public function queryDB($sql, $mode, $values) {
+    public function queryDB($sql, $mode, $values = []) {
         $stmt = $this->pdo->prepare($sql);
         foreach ($values as $valueToBind) {
             $stmt->bindValue($valueToBind[0], $valueToBind[1]);
