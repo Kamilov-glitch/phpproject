@@ -1,5 +1,49 @@
 <?php
 
+class BlogMember extends BlogReader {
+    
+    private $username;
+
+    public function __construct($pUsername)
+    {
+        parent::__construct();
+        $this->username = $pUsername;
+        $this->type = BlogMember::MEMBER;
+    }
+
+    public function isDuplicateID() {
+        $sql = "SELECT count(username) AS num FROM members 
+        WHERE username= :username";
+        $values = array(
+            array(":username", $this->type)
+        );
+        $result = $this->db->queryDB($sql, Database::SELECTSINGLE, $values);
+        if ($result['num'] === 0) return false;
+        return true;
+    }
+
+    public function insertIntoMemberDB($pPassword) {
+        $sql = "INSERT INTO members (username, password) VALUES
+        (:username, :password)";
+        $hashedpass = password_hash($pPassword, PASSWORD_DEFAULT); 
+        $values = array(
+            array(":username", $this->type),
+            array(":password", $hashedpass)
+        );
+        $this->db->queryDB($sql, Database::EXECUTE, $values);
+    }
+
+    public function isValidLogin($pPassword) {
+        $sql = "SELECT password FROM members WHERE username = :username";
+        $values = array(array(":username", $this->type));
+        $result = $this->db->queryDB($sql, Database::SELECTSINGLE, $values);
+        if (isset($result['password']) &&
+        password_verify($pPassword, $result['password']))
+            return true;
+        else 
+            return false;
+    }
+}
 
 
 
