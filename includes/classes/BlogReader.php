@@ -14,6 +14,18 @@ class BlogReader{
         $this->type = BlogReader::READER;
     }    
     
-    //Add getPostsFromDB() here
+    public function getPostsFromDB() {
+        $sql = "SELECT id, unix_timestamp(post_date) as 'post_date', 
+        username, title, post, audience FROM posts 
+        WHERE audience <= :audience ORDER BY id DESC";
+
+        $values = array(
+            array(':audience', $this->type)
+        );
+        $result = $this->db->queryDB($sql, Database::SELECTALL, $values);
+
+        if (count($result) === 0) return false;
+        return true;
+    }
     
 }
