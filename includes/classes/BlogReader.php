@@ -25,7 +25,7 @@ class BlogReader{
         $result = $this->db->queryDB($sql, Database::SELECTALL, $values);
 
         if (count($result) === 0) return false;
-        return true;
+        return $result;
     }
     
 }
