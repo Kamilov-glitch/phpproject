@@ -27,7 +27,7 @@
                     <input type="password" class="form-control" name="password">
                 </div>        	
             </div>
-            <div class = "formerror">Error Message Here</div>                
+            <div class = "formerror"><?php echo $msg ?></div>                
             <div class="form-group">
                 <div>
                     <center><button type="submit" name = "submit" class="btn btn-primary btn-lg">Log In</button></center>

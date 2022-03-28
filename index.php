@@ -1,7 +1,20 @@
-   <body>
-    <div class="form">   
-        
-        
+<?php
+
+session_start();
+
+include "UI_include.php";
+include INC_DIR . "/process/p-index.php";
+include INC_DIR . "header.html";
+
+?>
+    <body>
+    <div class="form">
+        <div class="new">
+            <?php
+                if (isset($_GET['new']))
+                    echo 'ACCOUNT CREATED SUCCESSFULLY';
+            ?>
+        </div>   
         
         <div class="heading">
             <i class="material-icons">account_box</i>
@@ -21,7 +34,7 @@
                     <input type="password" class="form-control" name="password">
                 </div>        	
             </div>
-            <div class = "formerror">Error Message Here</div>                
+            <div class = "formerror"><?php echo $msg ?></div>                
             <div class="form-group">
                 <div>
                     <center><button type="submit" name = "submit" class="btn btn-primary btn-lg">Log In</button></center>
