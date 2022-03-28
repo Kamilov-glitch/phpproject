@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     $username = $_POST['username'];
 
     if ($h->isEmpty([$username, $_POST['password'], $_POST['confirm_password']])) {
-        $msg = "All field required to be filled!";
+        $msg = "All fields are required to be filled!";
     } elseif(!$h->isValidLength($username, 6, 100)) {
         $msg = "The length of username can only be between 6 and 100!";
     } elseif(!$h->isValidLength($_POST['password'])) {

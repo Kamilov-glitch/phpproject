@@ -33,7 +33,7 @@ class Helper{
         return true;
     }
 
-    public function keepValues($val, $type, $attr) {
+    public function keepValues($val, $type, $attr = '') {
         switch ($type) {
             case 'textbox':
                 echo "value = '$val'";

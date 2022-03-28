@@ -4,6 +4,8 @@ include "UI_include.php";
 include INC_DIR . "/process/p-signup.php";
 include INC_DIR . "header.html";
 
+$h = new Helper();
+
 ?>
     <body>
         <div class="form">
@@ -16,7 +18,7 @@ include INC_DIR . "header.html";
                 <div class="form-group top"><i class="material-icons">face</i>
                     <label class="control-label">Username</label>
                     <div>
-                        <input type="text" class="form-control" name="username">
+                        <input type="text" class="form-control" name="username" <?php $h->keepValues($username, 'textbox') ?>>
                     </div>        	
                 </div>
                 <div class="form-group"><i class="material-icons">vpn_key</i>

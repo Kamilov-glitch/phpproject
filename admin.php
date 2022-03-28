@@ -1,9 +1,12 @@
 <?php
 
     session_start();
+
     include "UI_include.php";
     include INC_DIR."/process/p-admin.php";
     include INC_DIR.'header.html';
+
+    $h = new Helper();
 
 ?>
 
@@ -18,7 +21,8 @@
             <div class="form-group top">
                 <label class="control-label">Username</label>
                 <div>
-                    <input type="text" class="form-control" name="username">
+                    <input type="text" class="form-control" name="username"
+                    <?php $h->keepValues($username, 'textbox') ?>>
                 </div>        	
             </div>
             <div class="form-group">
