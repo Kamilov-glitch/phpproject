@@ -4,7 +4,6 @@
         <h4 class="card-title"><?php echo $title ?></h4>
         <hr>
         
-        //add code here to add new tag after last viewed post
         <?php
 
         if ($is_member && $last_post < $msgid) 

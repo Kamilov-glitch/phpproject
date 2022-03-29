@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
 
         $member = new BlogMember($username);
 
-        if ($member->isDuplicateID) {
+        if ($member->isDuplicateID()) {
             $msg = "That username is already in use, please choose another one!";
         } else {
             $member->insertIntoMemberDB($_POST['password']);

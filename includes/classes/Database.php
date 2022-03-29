@@ -22,8 +22,8 @@ class Database{
         }
         $stmt->execute();
 
-        if ($mode !== self::SELECTSINGLE || $mode!== self::SELECTALL 
-            || $mode !== self::EXECUTE) {
+        if ($mode != self::SELECTSINGLE && $mode!= self::SELECTALL 
+            && $mode != self::EXECUTE) {
                 throw new Exception("Invalid mode");
         } elseif ($mode === self::SELECTSINGLE) {
             return $stmt->fetch(PDO::FETCH_ASSOC);

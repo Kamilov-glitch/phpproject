@@ -13,9 +13,9 @@ class BlogMember extends BlogReader {
 
     public function isDuplicateID() {
         $sql = "SELECT count(username) AS num FROM members 
-        WHERE username= :username";
+        WHERE username = :username";
         $values = array(
-            array(":username", $this->type)
+            array(":username", $this->username)
         );
         $result = $this->db->queryDB($sql, Database::SELECTSINGLE, $values);
         if ($result['num'] === 0) return false;
@@ -27,7 +27,7 @@ class BlogMember extends BlogReader {
         (:username, :password)";
         $hashedpass = password_hash($pPassword, PASSWORD_DEFAULT); 
         $values = array(
-            array(":username", $this->type),
+            array(":username", $this->username),
             array(":password", $hashedpass)
         );
         $this->db->queryDB($sql, Database::EXECUTE, $values);
@@ -35,7 +35,7 @@ class BlogMember extends BlogReader {
 
     public function isValidLogin($pPassword) {
         $sql = "SELECT password FROM members WHERE username = :username";
-        $values = array(array(":username", $this->type));
+        $values = array(array(":username", $this->username));
         $result = $this->db->queryDB($sql, Database::SELECTSINGLE, $values);
         if (isset($result['password']) &&
         password_verify($pPassword, $result['password']))
@@ -58,7 +58,8 @@ class BlogMember extends BlogReader {
         $sql = "UPDATE members SET last_viewed = :max
         WHERE username = :username";
         $values = array(
-            array(":username", $this->type)
+            array(":max", $max),
+            array(":username", $this->username)
         );
         $this->db->queryDB($sql, Database::EXECUTE, $values);
     }
@@ -67,7 +68,7 @@ class BlogMember extends BlogReader {
         $sql = "SELECT last_viewed FROM members WHERE
         username = :username";
         $values = array(
-            array(":username", $this->type)
+            array(":username", $this->username)
         );
         $result = $this->db->queryDB($sql, Database::SELECTSINGLE, $values);
         
